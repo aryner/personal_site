@@ -1,1 +1,145 @@
 {% extends 'blog/base.html' %}
+
+{% block description %}Blog by Alex Ryner{% endblock%}
+{% block title %}Blog Home{% endblock %}
+
+{% block header %}Blog Posts{% endblock %}
+{% block subheader %}Posts about programing{% endblock %}
+
+{% block content %}
+  <div class="blog-post">
+    <h2 class="blog-post-title">
+      <a href="#">Intermediate JavaScript with Eve Porcello</a>
+    </h2>
+    <p class="blog-post-meta">
+      April 13, 2016 by 
+      <a href="{% url 'home' %}">Alex Ryner</a><br>
+      Meetup at 
+      <a href="http://www.galvanize.com/">
+        Galvanize
+      </a><br>
+      Presented by
+      <a href='https://twitter.com/eveporcello'>
+        Eve Porcello
+      </a><br>
+      <a href="http://www.meetup.com/learn-to-code-san-francisco/events/229391485/">
+        Meetup page
+      </a>
+    </p>
+    <h3>Introduction</h3>
+    <p>
+      Galvanize hosts a ton of great meetups every month; I always try to go to as many as I can.  Last Tuesday Eve Porcello presented a talk about functional programing with javaScript.  I will try to give an outline of the talk for anyone who couldn't make.
+    </p>
+    <h3>Array Methods</h3>
+    <p>
+      Working with arrays is an everyday occurance.  Most of us write loops without thinking about it.  While this looping procedure holds no mystery, it can be a bit tedious to write out a for loop everytime you want to do something to every element of an array.  Enter forEach, map, and filter.
+    </p>
+    <h4>forEach</h4>
+    <p>
+      Suppose we have some array of different things and we want to print each of them to the console.  In the past you might do something like
+    </p>
+    <pre>
+var array = [1,2,'dog',true,'cat',null,false];
+
+for(var i=0; i&lt;array.length; i++) {
+  console.log(array[i]);
+}
+    </pre>
+    <p>
+      This is fairly straight forward but instead we could do something like this
+    </p>
+    <pre>
+var array = [1,2,'dog',true,'cat',null,false];
+
+array.forEach(function(val) {
+  console.log(val);
+});
+    </pre>
+    <p>
+      Thats a little better.  It's more readable, saying for each applied to an array is hard to misinterpert.  It looks like we saved a little bit of typing, not much but some.  The more impressive changes will come when we add in the arrow functions a little later.
+    </p>
+    <h4>map</h4>
+    <p>
+      Now suppose instead of just printing each element of an array, instead we want to alter the array somehow.  For instance we might want to double each element.  Using a our standard for loop method we do something like
+    </p>
+    <pre>
+var array = [42,13,27,5,91];
+
+for(var i=0; i&lt;array.length; i++) {
+  array[i] = array[i] * 2
+}
+    </pre>
+    <p>
+      With the map function we can instead do this
+    </p>
+    <pre>
+var array = [42,13,27,5,91];
+
+array = array.map(function(value) {
+  return value * 2;
+});
+    </pre>
+    <p>
+      Looking at these two ways of doing the same thing, it's hard to see a real advanage of one over the other.  It seems like it would just be a preference choice.  But we are just building up our new toolbox now.  The real improvements will come when we use these tools in concert
+    </p>
+    <h4>filter</h4>
+    <p>
+      What if we had an array with a bunch of different things in it but all we really want are the numbers in the array?  We might do something like this
+    </p>
+    <pre>
+var everythingArray = [1,2,'dog',true,'cat',null,false];
+var numberArray = [];
+
+for(var i=0; i&lt;everythingArray.length; i++) {
+  if(typeof everythingArray[i] === "number") {
+    numberArray.push(everythingArray[i]);
+  }
+}
+    </pre>
+    <p>
+      Instead, with the filter function, we can do this
+    </p>
+    <pre>
+var everythingArray = [1,2,'dog',true,'cat',null,false];
+
+var numberArray = everythingArray.filter(function(val) {
+  return typeof val === "number";
+});
+    </pre>
+    <p>
+      Now we are starting to see some more obvious benefits.  This is clearly less code for the same result.  But it will only get better as we add more tools and put them together.
+    </p>
+    <h3>Arrow Functions</h3>
+    <p>
+      While I really like the array methods just described, this is where I think it really gets fun.  You might think of the arrow function as a shorter syntax of a function expresion.  It might be easier to understand after seeing it being used.  Here we will refactor the code showing off forEach to take advantage of the arrow function
+    </p>
+    <pre>
+var array = [1,2,'dog',true,'cat',null,false];
+
+array.forEach(value =&gt; console.log(value));
+    </pre>
+    <p>
+      Now we're really getting somewhere! Just look at how much more code we where writing before we started using the arrow fucntion and these array methods!  If you want more arguments for your arrow function just seperate them by commas and wrap them in a pair of parenthesis.  One statement not enough?  Just wrap them in some curly brackets.
+    </p>
+    <h3>Closures</h3>
+    <p>
+      Now we come to closures.  You've heard of them but you might not use them.  You can use closures to keep your scope clean; keeping new variables out of your working scope.  This allows you to manage state within your functions and have private variables.  There is more to closures than this but an entire post could be devoted to closures and I'm trying to keep the scope of this post what was discussed in the meet up.<br><br>
+Lets say you want to immediately call a function you will only use one time and you don't want to pollute the name space with any varibles you need for this function? Use a closure!
+    </p>
+    <pre>
+(function() {
+  var a = [1,2,'dog'];
+  a.forEach(thing =&gt; console.log(thing));
+  /* do more things
+  .
+  .
+  .
+  */
+})();
+    </pre>
+    <p>
+      This function will be called in place and any varibles defined within it are hidden from the outside scope.
+    </p>
+  </div>
+{% endblock %}
+

@@ -5,11 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Blog">
-    <meta name="author" content="Alex Ryner">
-    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+    <meta name="description" content="{% block description %}{% endblock %}">
+    <meta name="author" content="{% block author %}Alex Ryner{% endblock %}">
 
-    <title>Blog Template for Bootstrap</title>
+    <title>{% block title %}Alex Ryner{% endblock %}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -29,6 +28,11 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+      .page h1.format-icon:before {
+        content: none;
+      }
+    </style>
   </head>
 
   <body>
@@ -45,61 +49,36 @@
     <div class="container">
 
       <div class="blog-header">
-        <h1 class="blog-title">My Blog</h1>
-        <p class="lead blog-description">Maybe I'll have things to write about.  You can read them here</p>
+        <h1 class="blog-title">{% block header %}Heading{% endblock %}</h1>
+        <p class="lead blog-description">{% block subheader %}{% endblock %}</p>
       </div>
 
       <div class="row">
 
         <div class="col-sm-8 blog-main">
-
-          <div class="blog-post">
-            <h2 class="blog-post-title">Sample blog post</h2>
-            <p class="blog-post-meta">April 13, 2016 by <a href="{% url 'home' %}">Alex Ryner</a></p>
-            <p>blog post content</p>
-          </div><!-- /.blog-post -->
-
-<!--
-          <nav>
-            <ul class="pager">
-              <li><a href="#">Previous</a></li>
-              <li><a href="#">Next</a></li>
-            </ul>
-          </nav>
--->
-
+          {% block content %}{% endblock %}
         </div><!-- /.blog-main -->
 
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-          <div class="sidebar-module sidebar-module-inset">
-            <h4>About</h4>
-            <p>Alex writes code, sometimes he writes about writing code</p>
-          </div>
-<!--
+          {% block sidebar1 %}
+            <div class="sidebar-module sidebar-module-inset">
+              <h4>About</h4>
+              <p>Alex writes code, sometimes he writes about writing code</p>
+            </div>
+          {% endblock %}
+
           <div class="sidebar-module">
-            <h4>Archives</h4>
-            <ol class="list-unstyled">
-              <li><a href="#">March 2014</a></li>
-              <li><a href="#">February 2014</a></li>
-              <li><a href="#">January 2014</a></li>
-              <li><a href="#">December 2013</a></li>
-              <li><a href="#">November 2013</a></li>
-              <li><a href="#">October 2013</a></li>
-              <li><a href="#">September 2013</a></li>
-              <li><a href="#">August 2013</a></li>
-              <li><a href="#">July 2013</a></li>
-              <li><a href="#">June 2013</a></li>
-              <li><a href="#">May 2013</a></li>
-              <li><a href="#">April 2013</a></li>
-            </ol>
+            {% block sidebar2 %}{% endblock %}
           </div>
--->
+
           <div class="sidebar-module">
-            <h4>Elsewhere</h4>
-            <ol class="list-unstyled">
-              <li><a href="https://www.linkedin.com/in/alex-ryner-42aa25a7">LinkedIn</a></li>
-              <li><a href="https://github.com/aryner">GitHub</a></li>
-            </ol>
+            {% block sidebar3 %}
+              <h4>Elsewhere</h4>
+              <ol class="list-unstyled">
+                <li><a href="https://www.linkedin.com/in/alex-ryner-42aa25a7">LinkedIn</a></li>
+                <li><a href="https://github.com/aryner">GitHub</a></li>
+              </ol>
+            {% endblock %}
           </div>
         </div><!-- /.blog-sidebar -->
 
