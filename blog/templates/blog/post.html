@@ -1,0 +1,151 @@
+{% extends 'blog/base.html' %}
+
+{% block description %}Blog by Alex Ryner{% endblock%}
+{% block title %}Blog Home{% endblock %}
+
+{% block header %}{% endblock %}
+{% block subheader %}{% endblock %}
+
+{% block content %}
+  <div class="blog-post">
+    <h2 class="blog-post-title">
+      Intermediate JavaScript with Eve Porcello
+    </h2>
+    <p class="blog-post-meta">
+      April 14, 2016 by 
+      <a href="{% url 'home' %}">Alex Ryner</a><br>
+      Meetup at 
+      <a href="http://www.galvanize.com/">
+        Galvanize
+      </a><br>
+      Presented by
+      <a href='https://twitter.com/eveporcello'>
+        Eve Porcello
+      </a><br>
+      <a href="http://www.meetup.com/learn-to-code-san-francisco/events/229391485/">
+        Meetup page
+      </a>
+    </p>
+    <h3>Introduction</h3>
+    <p>
+I try to go to as many meet ups as I can.  They are a great way to learn and see new things while meeting some cool people.  Galvanize hosts a ton of meetups every month so I feel like I'm there all the time.  Last Tuesday Galvanize hosted a meet up about functional programing with javaScript, presented by Eve Porcello.  I'll do my best to give a summary of some of the topics covered in Eve's presentation for anyone who missed it.
+    </p>
+    <h3>Array Methods</h3>
+    <p>
+We all work with arrays.  Working with arrays more often than not means looping through arrays.  With this in mind, javaScript has given us some convience methods to deal with common array looping situations.  Here we will cover three of these methods: forEach, map, and filter.
+    </p>
+    <h4>forEach</h4>
+    <p>
+The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach">forEach</a> method lets us execute a function... for each element of an array.  So for example, if we wanted to print to console every element of an array; instead of doing this
+    </p>
+    <pre>
+var array = [1, 2, 'dog', true, 'cat', null, false];
+
+for(var i=0; i&lt;array.length; i++) {
+  console.log(array[i]);
+}
+    </pre>
+    <p>
+we can do this
+    </p>
+    <pre>
+var array = [1, 2, 'dog', true, 'cat', null, false];
+
+array.forEach(function(val) {
+  console.log(val);
+});
+    </pre>
+    <p>
+This is not a huge change, but it does save a little bit of typing. It also makes your code more readable, as forEach is much more explicit about what is happening.
+    </p>
+    <h4>map</h4>
+    <p>
+The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map">map</a> method returns a new array by applying a function to each element of the original array.  So if you wanted to double all the elements in an array, instead of doing this
+    </p>
+    <pre>
+var array = [42, 13, 27, 5, 91];
+var doubledArray = [];
+
+for(var i=0; i&lt;array.length; i++) {
+  doubledArray.push(array[i] * 2)
+}
+    </pre>
+    <p>
+we can use the map function and do this
+    </p>
+    <pre>
+var array = [42, 13, 27, 5, 91];
+
+var doubledArray = array.map(function(value) {
+  return value * 2;
+});
+    </pre>
+    <p>
+Like with the forEach method, this is not a drastic change.  Again we save some typing and it's a little more readable.  
+    </p>
+    <h4>filter</h4>
+    <p>
+The <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter">filter</a> method returns a new array comprised of elements that return true when a function is applied to them.  So we can use filter to get a subset of elements that pass a test we provide.  For example, what if we had an array with all sorts of things in it, but we only wanted the elements that are numbers?  We might think to do something like this
+    </p>
+    <pre>
+var everythingArray = [1, 2, 'dog', true, 'cat', null, false];
+var numberArray = [];
+
+for(var i=0; i&lt;everythingArray.length; i++) {
+  if(typeof everythingArray[i] === "number") {
+    numberArray.push(everythingArray[i]);
+  }
+}
+    </pre>
+    <p>
+but, using filter, we could instead do this
+    </p>
+    <pre>
+var everythingArray = [1, 2, 'dog', true, 'cat', null, false];
+
+var numberArray = everythingArray.filter(function(val) {
+  return typeof val === "number";
+});
+    </pre>
+    <p>
+I don't know about you, but that seems like a pretty big improvement to me.  We droped a whole if statement from our code.  And it's not too hard to infer that filter is going to filter elements out of the array; while the for loop requires a bit of examination to see what's happening.
+    </p>
+    <h3>Arrow Functions</h3>
+    <p>
+While I think these array methods are worthwhile all on their own, this is where they really start to shine.  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions">Arrow functions</a> allow you to express functions with a shorter syntax. Arrow functions look like <pre>(coma, sperated, parameters) =&gt; { statements }</pre>  Somethings to take note of about arrow functions; if there is only one parameter you can omit the parenthesis, if the only statement is a return statement you can omit the curly brackets and the word return.  Now lets refactor our code from the first example about the forEach method to show off an arrow function
+    </p>
+    <pre>
+var array = [1, 2, 'dog', true, 'cat', null, false];
+
+array.forEach(value =&gt; console.log(value));
+    </pre>
+    <p>
+Now we're making some real improvements! We are now typing a fair amount less for the same functionality and arguably more readable code.  I read the above as: take each element(value) in the array and do whatever is on the other side of =>.  And we can replace all the call back functions we used for the array methods with arrow functions, giving us drasticly fewer characters to type!
+    </p>
+    <h3>Closures</h3>
+    <p>
+The last thing I will cover from the talk are <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures">closures</a>.  This will be a very brief look at closures and will not cover everthing there is to know about them; you can find hole articles about the topic if you are so inclined.  The way I think about closures is that functions remember the environment in which they where created.  This matters because in javaScript scope is defined by functions, any variable defined by a function is accessible within the function but not outside of it.  But the function has access to all the variables it's parent environment has access to; and any function returned by a function will have access to the variables from the environment it was created in.<br><br>  That's a fair amount of information that might not be incredibly clear, and I'm trying to keep the scope of this post to what was covered in the meet up.  So with this in mind, I'll just give one example of how you might take advantage of closures.  Here we will immediately call an anonymous function using an <a href="http://benalman.com/news/2010/11/immediately-invoked-function-expression/">iife</a> without adding any variables to our namespace
+    </p>
+    <pre>
+(function() {
+  var a = [1, 2, 'dog'];
+
+  a.forEach(thing =&gt; console.log(thing));
+
+  /* do more things
+  .
+  .
+  .
+  */
+})();
+    </pre>
+    <p>
+all variables defined within this function are closed within the function.  That means if 'a' was undefined before this function, it will still be undefined after it.  This instance of 'a' is only defined within the function.  This helps us better manage our namespace.
+    </p>
+    <h3>Conclusion</h3>
+    <p>
+We didn't cover everything from Eve's presentations, but I tried to cover some of the main points.  I hope this post was helpful and encourages more of you to go out to some meet ups.
+    </p>
+  </div>
+{% endblock %}
+
