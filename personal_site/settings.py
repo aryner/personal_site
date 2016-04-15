@@ -16,7 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 TEMPLATE_DIR = os.path.join(BASE_DIR,'personal_site','templates')
-STATIC_PATH = os.path.join(BASE_DIR,'personal_iste','static')
+STATIC_PATH = os.path.join(BASE_DIR,'personal_site','static')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
