@@ -27,6 +27,15 @@ def add_post(file_name):
                                     content = content)[0]
   post.save()
 
+  speakers = json['speakers']
+  i = 1
+  while str(i) in speakers:
+    speaker = Speaker.objects.get_or_create(name=speakers[str(i)])[0]
+    speaker.link = speakers['%d_link'%i]
+    speaker.posts.add(post)
+    speaker.save()
+    i += 1
+
 if __name__ == '__main__':
   if len(sys.argv) < 2:
     print('You must enter the notes file path as a command line arguement')
