@@ -9,6 +9,11 @@ django.setup()
 
 from blog.models import Post, Speaker, Location, Event
 
+def add_post(file_name):
+  lines = getLines(file_name) 
+  json = transformToJson(lines)
+  content = format_content(json)
+
 if __name__ == '__main__':
   import sys
 
@@ -16,4 +21,5 @@ if __name__ == '__main__':
     print('You must enter the notes file path as a command line arguement')
     sys.exit()
 
-  lines = getLines(sys.argv[1]) 
+  add_post(sys.argv[1])
+
