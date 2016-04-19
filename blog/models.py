@@ -1,7 +1,7 @@
 from django.db import models
 
 class Post(models.Model):
-  title = models.CharField(max_length=128,unique=True)
+  title = models.CharField(max_length=128,unique=True,primary_key=True)
   title_link = models.URLField()
   subtitle = models.CharField(max_length=128)
   date = models.DateField()
