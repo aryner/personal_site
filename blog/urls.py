@@ -4,6 +4,6 @@ from blog import views
 app_name = 'blog'
 urlpatterns = [
   url(r'^$',views.index,name='index'),
-  url(r'^post$',views.post,name='post'),
+  url(r'^post/(?P<title_slug>[\w\-]+)/$',views.post,name='post'),
 ]
 

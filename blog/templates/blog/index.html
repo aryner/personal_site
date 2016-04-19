@@ -10,7 +10,7 @@
 {% for post in posts %}
   <div class="blog-post">
     <h2 class="blog-post-title">
-      <a href="{% url 'blog:post' %}">{{ post.title }}</a>
+      <a href="{% url 'blog:post' post.slug %}">{{ post.title }}</a>
     </h2>
     <p class="blog-post-meta">
       {{ post.date }}
@@ -19,7 +19,7 @@
     </p>
       {{ post.content | safe | slice:":500" }}
     <p>
-      <a href="{% url 'blog:post' %}">... continue reading</a>
+      <a href="{% url 'blog:post' post.slug %}">... continue reading</a>
     </p>
   </div>
 {% endfor %}

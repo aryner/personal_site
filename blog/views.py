@@ -10,6 +10,7 @@ def index(request):
 
   return render(request,'blog/index.html',base_context)
 
-def post(request):
+def post(request,title_slug):
+  print(title_slug)
   return render(request,'blog/post.html',{})
 
