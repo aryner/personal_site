@@ -17,9 +17,4 @@ class Location(models.Model):
   link = models.URLField()
   posts = models.ManyToManyField(Post)
 
-class Event(models.Model):
-  name = models.CharField(max_length=128,unique=True)
-  link = models.URLField()
-  posts = models.ManyToManyField(Post)
-  
 

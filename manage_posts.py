@@ -9,7 +9,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE','personal_site.settings')
 import django
 django.setup()
 
-from blog.models import Post, Speaker, Location, Event
+from blog.models import Post, Speaker, Location
 
 def add_post(file_name):
   lines = getLines(file_name) 
