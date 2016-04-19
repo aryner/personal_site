@@ -7,21 +7,21 @@
 {% block subheader %}Posts about programing{% endblock %}
 
 {% block content %}
+{% for post in posts %}
   <div class="blog-post">
     <h2 class="blog-post-title">
-      <a href="{% url 'blog:post' %}">Intermediate JavaScript with Eve Porcello</a>
+      <a href="{% url 'blog:post' %}">{{ post.title }}</a>
     </h2>
     <p class="blog-post-meta">
-      April 14, 2016 by 
+      {{ post.date }}
+      <br>By 
       <a href="{% url 'home' %}">Alex Ryner</a><br>
     </p>
-    <h3>Introduction</h3>
-    <p>
-I try to go to as many meet ups as I can.  They are a great way to learn and see new things while meeting some cool people.  Galvanize hosts a ton of meetups every month so I feel like I'm there all the time.  Last Tuesday Galvanize hosted a meet up about functional programing with javaScript, presented by Eve Porcello.  I'll do my best to give a summary of some of the topics covered in Eve's presentation for anyone who missed it.
-    </p>
+      {{ post.content | safe | slice:":500" }}
     <p>
       <a href="{% url 'blog:post' %}">... continue reading</a>
     </p>
   </div>
+{% endfor %}
 {% endblock %}
 
