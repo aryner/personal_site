@@ -11,6 +11,10 @@ def index(request):
   return render(request,'blog/index.html',base_context)
 
 def post(request,title_slug):
-  print(title_slug)
-  return render(request,'blog/post.html',{})
+  post = Post.objects.get(slug=title_slug)
+  speakers = Speaker.objects.all().filter(posts=post)
+  location = Location.objects.all().filter(posts=post)[0]
+
+  base_context = {'post':post,'speakers':speakers,'location':location}
+  return render(request,'blog/post.html',base_context)
 
