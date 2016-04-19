@@ -36,6 +36,11 @@ def add_post(file_name):
     speaker.save()
     i += 1
 
+  location = Location.objects.get_or_create(name=json['location'])[0]
+  location.link = json['location_link']
+  location.posts.add(post)
+  location.save()
+
 if __name__ == '__main__':
   if len(sys.argv) < 2:
     print('You must enter the notes file path as a command line arguement')
