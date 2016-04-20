@@ -24,4 +24,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^blog/',include('blog.urls')),
     url(r'^$',index,name='home'),
+    url(r'^accounts/',include('registration.backends.simple.urls')),
 ]
+

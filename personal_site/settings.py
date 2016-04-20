@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'registration',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -127,3 +128,11 @@ STATIC_ROOT = 'static'
 #STATICFILES_DIRS = (
 #  STATIC_PATH,
 #)
+
+# registration
+
+REGISTRATION_OPEN = True
+REGISTRATION_AUTO_LOGIN = True
+LOGIN_REDIRECT_URL = '/blog/'
+LOGIN_URL = '/accounts/login/'
+

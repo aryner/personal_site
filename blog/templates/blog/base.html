@@ -42,6 +42,9 @@
         <nav class="blog-nav">
           <a class="blog-nav-item" href="{% url 'home' %}">Alex Ryner</a>
           <a class="blog-nav-item" href="{% url 'blog:index' %}">Blog Home</a>
+          <a class="blog-nav-item" href="{% url 'auth_login' %}">Login</a>
+          <a class="blog-nav-item" href="{% url 'registration_register' %}?next=/blog/">Register</a>
+          <a class="blog-nav-item" href="{% url 'auth_logout' %}?next=/">Logout</a>
         </nav>
       </div>
     </div>
