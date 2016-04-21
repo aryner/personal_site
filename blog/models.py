@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 
 class Post(models.Model):
@@ -13,14 +14,30 @@ class Post(models.Model):
     self.slug = slugify(self.title)
     super(Post, self).save(*args, **kwargs)
 
+  def __str__(self):
+    return self.title
+
 class Speaker(models.Model):
   name = models.CharField(max_length=128,unique=True)
   link = models.URLField()
   posts = models.ManyToManyField(Post)
 
+  def __str__(self):
+    return self.name
+
 class Location(models.Model):
   name = models.CharField(max_length=128,unique=True)
   link = models.URLField()
   posts = models.ManyToManyField(Post)
+
+  def __str__(self):
+    return self.name
+
+class Comment(models.Model):
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  post = models.ManyToManyField(Post)
+  content = models.TextField()
+  dateTime = models.DateTimeField(auto_now=True)
+  parent = models.ForeignKey('Comment',null=True)
 
 
