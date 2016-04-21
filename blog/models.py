@@ -7,7 +7,7 @@ class Post(models.Model):
   subtitle = models.CharField(max_length=128)
   date = models.DateField()
   content = models.TextField()
-  slug = models.SlugField()
+  slug = models.SlugField(default='')
 
   def save(self,*args,**kwargs):
     self.slug = slugify(self.title)
