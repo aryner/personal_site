@@ -33,6 +33,23 @@
       {% endfor %}
     </p>
     {{ post.content | safe }}
+
+    <hr>
+    {% if user.is_authenticated %}
+      <form method='post' action='#'>
+        <h4>Add your thoughts</h4>
+        <textarea name='comment' style='width:100%;height:200px'></textarea>
+      </form>
+      <input type='submit' value='Post Comment' class='btn btn-primary'>
+    {% else %}
+      <h4>
+        <a href="{% url 'auth_login' %}">Login</a> 
+        or <a href="{% url 'registration_register' %}">Register</a> 
+        to comment
+      </h4>
+    {% endif %}
+    <hr>
+    <h2>Comments</h2>
   </div>
 {% endblock %}
 
