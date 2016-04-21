@@ -53,6 +53,12 @@
     {% endif %}
     <hr>
     <h2>Comments</h2>
+    <hr>
+    {% for comment in comments %}
+      <h4 class='commenter'>{{ comment.user.username }}:</h4>
+      <p class='comment'>{{ comment.content }}</p>
+      <hr>
+    {% endfor %}
   </div>
 {% endblock %}
 

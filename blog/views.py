@@ -18,8 +18,9 @@ def post(request,title_slug):
   post = Post.objects.get(slug=title_slug)
   speakers = Speaker.objects.all().filter(posts=post)
   location = Location.objects.all().filter(posts=post)[0]
+  comments = Comment.objects.all().filter(post=post)
 
-  base_context = {'post':post,'speakers':speakers,'location':location}
+  base_context = {'post':post,'speakers':speakers,'location':location,'comments':comments}
   return render(request,'blog/post.html',base_context)
 
 @login_required
