@@ -34,7 +34,10 @@
     </p>
     {{ post.content | safe }}
 
+    <br><br>
     <hr>
+    <br><br>
+    <h2>Comments</h2>
     {% if user.is_authenticated %}
       <form method='post' action='{% url "blog:comment" %}'>
         {% csrf_token %}
@@ -52,11 +55,12 @@
       </h4>
     {% endif %}
     <hr>
-    <h2>Comments</h2>
-    <hr>
     {% for comment in comments %}
-      <h4 class='commenter'>{{ comment.user.username }}:</h4>
-      <p class='comment'>{{ comment.content }}</p>
+      <p class='commenter'>
+        <span class='date'>{{ comment.dateTime }}</span><br>
+        {{ comment.user.username }}:
+      </p>
+      <div class='comment'>{{ comment.content }}</div>
       <hr>
     {% endfor %}
   </div>
