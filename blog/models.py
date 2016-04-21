@@ -37,7 +37,7 @@ class Comment(models.Model):
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   post = models.ManyToManyField(Post)
   content = models.TextField()
-  dateTime = models.DateTimeField(auto_now=True)
+  dateTime = models.DateTimeField(auto_now_add=True)
   parent = models.ForeignKey('Comment',null=True)
 
 
