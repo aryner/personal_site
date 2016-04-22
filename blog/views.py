@@ -1,6 +1,7 @@
 import datetime
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.conf.urls import url
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -43,7 +44,7 @@ def comment(request):
         parent.children.add(comment)
         parent.save()
 
-    return post(request,post_slug)
+    return post(request,posted_to.slug)
 
   return index(request)
 
