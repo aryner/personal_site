@@ -1,6 +1,6 @@
 {% extends 'blog/base.html' %}
 
-{% load blog_reply %}
+<!--  {% load blog_reply %} -->
 
 {% block description %}Blog by Alex Ryner{% endblock%}
 {% block title %}{{ post.title }}{% endblock %}
@@ -73,7 +73,7 @@
           <input type='submit' value='Reply' class='btn btn-primary'>
         </form>
       {% endif %}
-      {% show_replies comment user.is_authenticated post.slug %}
+<!--      {% show_replies comment user.is_authenticated post.slug %} -->
       <hr>
     {% endfor %}
   </div>
