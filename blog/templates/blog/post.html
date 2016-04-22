@@ -61,6 +61,16 @@
         {{ comment.user.username }}:
       </p>
       <div class='comment'>{{ comment.content }}</div>
+      {% if user.is_authenticated %}
+        <form method='post' action='{% url "blog:comment" %}'>
+          {% csrf_token %}
+          <h5>Reply</h5>
+          <textarea name='comment' style='width:100%;height:35px;'></textarea>
+          <input type='hidden' name='parent' value='{{ comment.id }}'>
+          <input type='hidden' name='post_slug' value='{{ post.slug }}'>
+          <input type='submit' value='Reply' class='btn btn-primary'>
+        </form>
+      {% endif %}
       <hr>
     {% endfor %}
   </div>
