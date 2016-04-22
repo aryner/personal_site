@@ -38,6 +38,8 @@ class Comment(models.Model):
   post = models.ManyToManyField(Post)
   content = models.TextField()
   dateTime = models.DateTimeField(auto_now_add=True)
-  parent = models.ForeignKey('Comment',null=True)
+  root_comment = models.BooleanField(default=True)
+  children = models.ManyToManyField('Comment')
 
-
+  def __str__(self):
+    return '%s: %s'%(self.user.username,self.content[0:20])

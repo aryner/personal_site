@@ -18,7 +18,7 @@ def post(request,title_slug):
   post = Post.objects.get(slug=title_slug)
   speakers = Speaker.objects.all().filter(posts=post)
   location = Location.objects.all().filter(posts=post)[0]
-  comments = Comment.objects.all().filter(post=post)
+  comments = Comment.objects.all().filter(post=post).filter(root_comment=True)
 
   base_context = {'post':post,'speakers':speakers,'location':location,'comments':comments}
   return render(request,'blog/post.html',base_context)
@@ -35,9 +35,13 @@ def comment(request):
       comment = Comment.objects.create(user=request.user,
                                        content=content,
                                        dateTime=datetime.datetime.now(),
-                                       parent=parent)
+                                       root_comment=(parent==None))
       comment.post.add(posted_to)
       comment.save()
+
+      if parent:
+        parent.children.add(comment)
+        parent.save()
 
     return post(request,post_slug)
 
