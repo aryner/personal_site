@@ -44,7 +44,7 @@ def comment(request):
         parent.children.add(comment)
         parent.save()
 
-    return post(request,posted_to.slug)
+    return HttpResponseRedirect('/blog/post/%s/'%posted_to.slug)
 
   return index(request)
 
