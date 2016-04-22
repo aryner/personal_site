@@ -1,0 +1,9 @@
+<div class='reply'>
+  {% for reply in replies %}
+    <p class='commenter'>
+      <span class='date'>{{ reply.dateTime }}</span><br>
+      {{ reply.user.username }}:
+    </p>
+    <div class='comment'>{{ reply.content }}</div>
+  {% endfor %}
+</div>

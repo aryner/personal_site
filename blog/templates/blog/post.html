@@ -1,5 +1,7 @@
 {% extends 'blog/base.html' %}
 
+{% load blog_reply %}
+
 {% block description %}Blog by Alex Ryner{% endblock%}
 {% block title %}{{ post.title }}{% endblock %}
 
@@ -71,15 +73,7 @@
           <input type='submit' value='Reply' class='btn btn-primary'>
         </form>
       {% endif %}
-      <div class='reply'>
-        {% for reply in comment.children.all %}
-          <p class='commenter'>
-            <span class='date'>{{ reply.dateTime }}</span><br>
-            {{ reply.user.username }}:
-          </p>
-          <div class='comment'>{{ reply.content }}</div>
-        {% endfor %}
-      </div>
+      {% show_replies comment %}
       <hr>
     {% endfor %}
   </div>
