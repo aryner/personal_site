@@ -10,7 +10,7 @@ from blog.models import Post, Speaker, Location, Comment
 
 # Create your views here.
 def index(request):
-  posts = Post.objects.order_by('date')[:5]
+  posts = Post.objects.order_by('-date')[:5]
   base_context = {'posts':posts}
 
   return render(request,'blog/index.html',base_context)
