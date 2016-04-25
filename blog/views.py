@@ -3,7 +3,7 @@ import datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf.urls import url
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 
 from blog.models import Post, Speaker, Location, Comment
@@ -47,4 +47,9 @@ def comment(request):
     return HttpResponseRedirect('/blog/post/%s/'%posted_to.slug)
 
   return index(request)
+
+# TODO add permission_required
+@login_required
+def manage_posts(request):
+  return render(request, 'blog/manage_posts.html',{})
 
