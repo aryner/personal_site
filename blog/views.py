@@ -9,7 +9,6 @@ from django.contrib.auth.models import User
 from blog.models import Post, Speaker, Location, Comment
 from manage_posts import add_post as load_post
 
-# Create your views here.
 def index(request):
   posts = Post.objects.all().filter(published=True).order_by('-date')[:5]
   base_context = {'posts':posts}
@@ -25,9 +24,11 @@ def post(request,title_slug):
   base_context = {'post':post,'speakers':speakers,'location':location,'comments':comments}
   return render(request,'blog/post.html',base_context)
 
-# TODO add permission_required
 @login_required
 def preview_post(request,title_slug):
+  if not request.user.is_superuser:
+    return HttpResponseRedirect('/blog/')
+
   post = Post.objects.get(slug=title_slug)
   speakers = Speaker.objects.all().filter(posts=post)
   location = Location.objects.all().filter(posts=post)[0]
@@ -36,25 +37,31 @@ def preview_post(request,title_slug):
   base_context = {'post':post,'speakers':speakers,'location':location,'comments':comments}
   return render(request,'blog/preview_post.html',base_context)
 
-# TODO add permission_required
 @login_required
 def publish(request,title_slug):
+  if not request.user.is_superuser:
+    return HttpResponseRedirect('/blog/')
+
   post = Post.objects.get(slug=title_slug)
   post.published = True
   post.save()
   return HttpResponseRedirect('/blog/manage_posts')
 
-# TODO add permission_required
 @login_required
 def unpublish(request,title_slug):
+  if not request.user.is_superuser:
+    return HttpResponseRedirect('/blog/')
+
   post = Post.objects.get(slug=title_slug)
   post.published = False
   post.save()
   return HttpResponseRedirect('/blog/manage_posts')
   
-# TODO add permission_required
 @login_required
 def delete_post(request,title_slug):
+  if not request.user.is_superuser:
+    return HttpResponseRedirect('/blog/')
+
   post = Post.objects.get(slug=title_slug)
   post.delete()
   return HttpResponseRedirect('/blog/manage_posts')
@@ -83,7 +90,6 @@ def comment(request):
 
   return index(request)
 
-# TODO add permission_required
 @login_required
 def manage_posts(request):
   if request.user.is_superuser:
@@ -93,7 +99,6 @@ def manage_posts(request):
   else:
     return HttpResponseRedirect('/blog/')
 
-# TODO add permission_required
 @login_required
 def add_post(request):
   if request.user.is_superuser and request.method == 'POST':
