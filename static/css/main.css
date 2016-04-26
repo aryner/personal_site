@@ -16,3 +16,21 @@
 .reply {
   margin: 10px 40px 10px 40px;
 }
+
+.published {
+  list-style-type: none;
+}
+.published > a {
+  color: green;
+}
+
+.unpublished {
+  list-style-type: none;
+}
+.unpublished > a {
+  color: #999900;
+}
+
+.btn-delete {
+  float: right;
+}
