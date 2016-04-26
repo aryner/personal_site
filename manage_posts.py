@@ -10,10 +10,12 @@ def add_post(file_name):
   json = transformToJson(lines)
   content = format_content(json)
 
+  '''
   if Post.objects.all().filter(title=json['title']):
     print('Unable to add %s as it already exists'%(json['title'],file=sys.stderr))
+  '''
 
-  else:
+  if not Post.objects.all().filter(title=json['title']):
     post = Post.objects.get_or_create(title = json['title'],
                                       title_link = json['title_link'],
                                       subtitle = json['subtitle'],
