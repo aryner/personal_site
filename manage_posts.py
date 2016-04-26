@@ -11,30 +11,30 @@ def add_post(file_name):
   content = format_content(json)
 
   if Post.objects.all().filter(title=json['title']):
-    print('Unable to add %s as it already exists'%json['title'],file=sys.stderr)
-    return
+    print('Unable to add %s as it already exists'%(json['title'],file=sys.stderr))
 
-  post = Post.objects.get_or_create(title = json['title'],
-                                    title_link = json['title_link'],
-                                    subtitle = json['subtitle'],
-                                    date = datetime.datetime.now(),
-                                    content = content,
-                                    published = False)[0]
-  post.save()
+  else:
+    post = Post.objects.get_or_create(title = json['title'],
+                                      title_link = json['title_link'],
+                                      subtitle = json['subtitle'],
+                                      date = datetime.datetime.now(),
+                                      content = content,
+                                      published = False)[0]
+    post.save()
 
-  speakers = json['speakers']
-  i = 1
-  while str(i) in speakers:
-    speaker = Speaker.objects.get_or_create(name=speakers[str(i)])[0]
-    speaker.link = speakers['%d_link'%i]
-    speaker.posts.add(post)
-    speaker.save()
-    i += 1
+    speakers = json['speakers']
+    i = 1
+    while str(i) in speakers:
+      speaker = Speaker.objects.get_or_create(name=speakers[str(i)])[0]
+      speaker.link = speakers['%d_link'%i]
+      speaker.posts.add(post)
+      speaker.save()
+      i += 1
 
-  location = Location.objects.get_or_create(name=json['location'])[0]
-  location.link = json['location_link']
-  location.posts.add(post)
-  location.save()
+    location = Location.objects.get_or_create(name=json['location'])[0]
+    location.link = json['location_link']
+    location.posts.add(post)
+    location.save()
 
 if __name__ == '__main__':
   import os
