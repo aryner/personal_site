@@ -25,6 +25,40 @@ def post(request,title_slug):
   base_context = {'post':post,'speakers':speakers,'location':location,'comments':comments}
   return render(request,'blog/post.html',base_context)
 
+# TODO add permission_required
+@login_required
+def preview_post(request,title_slug):
+  post = Post.objects.get(slug=title_slug)
+  speakers = Speaker.objects.all().filter(posts=post)
+  location = Location.objects.all().filter(posts=post)[0]
+  comments = Comment.objects.all().filter(post=post).filter(root_comment=True)
+
+  base_context = {'post':post,'speakers':speakers,'location':location,'comments':comments}
+  return render(request,'blog/preview_post.html',base_context)
+
+# TODO add permission_required
+@login_required
+def publish(request,title_slug):
+  post = Post.objects.get(slug=title_slug)
+  post.published = True
+  post.save()
+  return HttpResponseRedirect('/blog/manage_posts')
+
+# TODO add permission_required
+@login_required
+def unpublish(request,title_slug):
+  post = Post.objects.get(slug=title_slug)
+  post.published = False
+  post.save()
+  return HttpResponseRedirect('/blog/manage_posts')
+  
+# TODO add permission_required
+@login_required
+def delete_post(request,title_slug):
+  post = Post.objects.get(slug=title_slug)
+  post.delete()
+  return HttpResponseRedirect('/blog/manage_posts')
+
 @login_required
 def comment(request):
   post_slug = request.POST.get('post_slug')

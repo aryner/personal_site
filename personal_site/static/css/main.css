@@ -18,10 +18,19 @@
 }
 
 .published {
-  color: green;
   list-style-type: none;
 }
+.published > a {
+  color: green;
+}
+
 .unpublished {
-  color: #999900;
   list-style-type: none;
+}
+.unpublished > a {
+  color: #999900;
+}
+
+.btn-delete {
+  float: right;
 }

@@ -19,7 +19,9 @@
       {% else %}
         <li class='unpublished'>
       {% endif %}
-      {{ post.title }} - {{ post.date }}
+      <a href="{% url 'blog:preview_post' post.slug %}">
+        {{ post.title }} - {{ post.date }}
+      </a>
     </li>
     {% endfor %}
   </ul>
