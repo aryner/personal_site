@@ -9,6 +9,13 @@ from django.contrib.auth.models import User
 from blog.models import Post, Speaker, Location, Comment
 from manage_posts import add_post as load_post
 
+from subprocess import call
+
+def update(request):
+  call(["python","manage.py","makemigrations"])
+  call(["python","manage.py","migrate"])
+  return HttpResponseRedirect('/')
+
 def index(request):
   posts = Post.objects.all().filter(published=True).order_by('-date')[:5]
   base_context = {'posts':posts}
