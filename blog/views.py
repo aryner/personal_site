@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 
 from blog.models import Post, Speaker, Location, Comment
-from manage_posts import add_post as load_post
+from blog.manage_posts import add_post as load_post
 
 from subprocess import call
 

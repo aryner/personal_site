@@ -1,5 +1,5 @@
-from tools.formatJsonNotes import format_content
-from tools.notesToJson import getLines, transformToJson
+from blog.tools.formatJsonNotes import format_content
+from blog.tools.notesToJson import getLines, transformToJson
 
 import datetime
 import sys
