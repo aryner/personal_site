@@ -1,5 +1,7 @@
 {% extends 'blog/base.html' %}
 
+{% load blog_filters %}
+
 {% block description %}Blog by Alex Ryner{% endblock%}
 {% block title %}Blog Home{% endblock %}
 
@@ -17,7 +19,7 @@
       <br>By 
       <a href="{% url 'home' %}">Alex Ryner</a><br>
     </p>
-      {{ post.content | safe | slice:":500" }}
+      {{ post.content | preview | safe }}
     <p>
       <a href="{% url 'blog:post' post.slug %}">... continue reading</a>
     </p>

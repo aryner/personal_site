@@ -1,0 +1,50 @@
+{% extends 'blog/base.html' %}
+
+{% load blog_reply %}
+
+{% block description %}Blog by Alex Ryner{% endblock%}
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block header %}{% endblock %}
+{% block subheader %}{% endblock %}
+
+{% block content %}
+  <div class="blog-post">
+    <h2 class="blog-post-title">
+    {% if post.title_link != '-' %}
+      <a href="{{ post.title_link }}">
+        {{ post.title }}
+      </a>
+    {% else %}
+      {{ post.title }}
+    {% endif %}
+    </h2>
+    <p class="blog-post-meta">
+      {{ post.date }}
+      <br>By 
+      <a href="{% url 'home' %}">Alex Ryner</a><br>
+      Meetup at 
+      <a href="{{ location.link }}">
+        {{ location.name }}
+      </a><br>
+      Presented by
+      {% for speaker in speakers %}
+        <a href='{{ speaker.link }}'>
+          {{ speaker.name }}
+        </a><br>
+      {% endfor %}
+    </p>
+    {{ post.content | safe }}
+
+    <hr><br><br>
+ 
+    {% if post.published %}
+      <a class='btn btn-warning' href='{% url 'blog:unpublish' post.slug %}'>Unpublish Post</a>
+    {% else %}
+      <a class='btn btn-success' href='{% url 'blog:publish' post.slug %}'>Publish Post</a>
+    {% endif %}
+    <a class='btn btn-danger btn-delete' href='{% url 'blog:delete_post' post.slug %}'>Delete Post</a>
+
+  </div>
+{% endblock %}
+

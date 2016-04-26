@@ -1,4 +1,5 @@
 import sys
+import os
 
 def addMeta(lines,index,data,cat):
   data[cat] = lines[index+1]
@@ -97,15 +98,17 @@ def switch(lines,index,data):
   else:
     return index+1
 
-def getLines(name):
-  f = open(sys.argv[1],'r')
+def getLines(f,local=False):
+  if local:
+    f = open(f,'r')
   lines = []
-  line = f.readline()
+  line = f.readline().decode("utf-8")
   while line != '':
     lines.append(line.rstrip('\n'))
-    line = f.readline()
+    line = f.readline().decode("utf-8")
 
   f.close()
+
   return lines
 
 def transformToJson(lines):
@@ -117,7 +120,7 @@ def transformToJson(lines):
   return data
 
 if __name__ == '__main__':
-  lines = getLines(sys.argv[1])
+  lines = getLines(sys.argv[1],True)
   data = transformToJson(lines)
 
   print(data)
