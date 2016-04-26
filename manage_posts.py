@@ -3,12 +3,6 @@ from tools.notesToJson import getLines, transformToJson
 
 import datetime
 import sys
-import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE','personal_site.settings')
-
-import django
-django.setup()
-
 from blog.models import Post, Speaker, Location
 
 def add_post(file_name):
@@ -24,7 +18,8 @@ def add_post(file_name):
                                     title_link = json['title_link'],
                                     subtitle = json['subtitle'],
                                     date = datetime.datetime.now(),
-                                    content = content)[0]
+                                    content = content,
+                                    published = False)[0]
   post.save()
 
   speakers = json['speakers']
@@ -42,6 +37,11 @@ def add_post(file_name):
   location.save()
 
 if __name__ == '__main__':
+  import os
+  os.environ.setdefault('DJANGO_SETTINGS_MODULE','personal_site.settings')
+  import django
+  django.setup()
+
   if len(sys.argv) < 2:
     print('You must enter the notes file path as a command line arguement')
     sys.exit()

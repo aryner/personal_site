@@ -7,10 +7,11 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User
 
 from blog.models import Post, Speaker, Location, Comment
+from manage_posts import add_post as load_post
 
 # Create your views here.
 def index(request):
-  posts = Post.objects.order_by('-date')[:5]
+  posts = Post.objects.all().filter(published=True).order_by('-date')[:5]
   base_context = {'posts':posts}
 
   return render(request,'blog/index.html',base_context)
@@ -51,5 +52,22 @@ def comment(request):
 # TODO add permission_required
 @login_required
 def manage_posts(request):
-  return render(request, 'blog/manage_posts.html',{})
+  if request.user.is_superuser:
+    posts = Post.objects.order_by('-date')
+    base_context = {'posts':posts}
+    return render(request, 'blog/manage_posts.html',base_context)
+  else:
+    return HttpResponseRedirect('/blog/')
+
+# TODO add permission_required
+@login_required
+def add_post(request):
+  if request.user.is_superuser and request.method == 'POST':
+    if request.FILES:
+      new_post = request.FILES['raw_post']
+      load_post(new_post)
+    return HttpResponseRedirect('/blog/manage_posts')
+  else:
+    return HttpResponseRedirect('/blog/')
+
 

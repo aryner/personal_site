@@ -1,2 +1,26 @@
 {% extends 'blog/base.html' %}
-TODO
+
+{% block title %}Manage Posts{% endblock %}
+{% block header %}Manage Posts{% endblock %}
+
+{% block content %}
+  <h3>Upload a new post</h3>
+  <form method='post' action='{% url "blog:add_post" %}' enctype='multipart/form-data'>
+    {% csrf_token %}
+    <input type='file' name='raw_post' class='btn'><br>
+    <input type='submit' value='Add Post' class='btn btn-success'>
+  </form>
+  <hr>
+  <h3>Posts</h3>
+  <ul>
+    {% for post in posts %}
+      {% if post.published %}
+        <li class='published'>
+      {% else %}
+        <li class='unpublished'>
+      {% endif %}
+      {{ post.title }} - {{ post.date }}
+    </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

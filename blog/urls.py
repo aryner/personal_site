@@ -7,5 +7,6 @@ urlpatterns = [
   url(r'^comment/$',views.comment,name='comment'),
   url(r'^post/(?P<title_slug>[\w\-]+)/$',views.post,name='post'),
   url(r'^manage_posts/$',views.manage_posts,name='manage_posts'),
+  url(r'^add_post/$',views.add_post,name='add_post'),
 ]
 
