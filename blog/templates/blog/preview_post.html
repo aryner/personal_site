@@ -18,21 +18,26 @@
     {% else %}
       {{ post.title }}
     {% endif %}
+    <p class='lead blog-description'>{{ post.subtitle }}</p>
     </h2>
     <p class="blog-post-meta">
       {{ post.date }}
       <br>By 
       <a href="{% url 'home' %}">Alex Ryner</a><br>
-      Meetup at 
-      <a href="{{ location.link }}">
-        {{ location.name }}
-      </a><br>
-      Presented by
-      {% for speaker in speakers %}
-        <a href='{{ speaker.link }}'>
-          {{ speaker.name }}
+      {% if location %}
+        Meetup at 
+        <a href="{{ location.link }}">
+          {{ location.name }}
         </a><br>
-      {% endfor %}
+      {% endif %}
+      {% if speakers %}
+        Presented by
+        {% for speaker in speakers %}
+          <a href='{{ speaker.link }}'>
+            {{ speaker.name }}
+          </a><br>
+        {% endfor %}
+      {% endif %}
     </p>
     {{ post.content | safe }}
 

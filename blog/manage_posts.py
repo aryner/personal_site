@@ -22,19 +22,21 @@ def add_post(file_name):
                                     published = False)[0]
   post.save()
 
-  speakers = json['speakers']
-  i = 1
-  while str(i) in speakers:
-    speaker = Speaker.objects.get_or_create(name=speakers[str(i)])[0]
-    speaker.link = speakers['%d_link'%i]
-    speaker.posts.add(post)
-    speaker.save()
-    i += 1
+  if 'speakers' in  json:
+    speakers = json['speakers']
+    i = 1
+    while str(i) in speakers:
+      speaker = Speaker.objects.get_or_create(name=speakers[str(i)])[0]
+      speaker.link = speakers['%d_link'%i]
+      speaker.posts.add(post)
+      speaker.save()
+      i += 1
 
-  location = Location.objects.get_or_create(name=json['location'])[0]
-  location.link = json['location_link']
-  location.posts.add(post)
-  location.save()
+  if 'location' in json:
+    location = Location.objects.get_or_create(name=json['location'])[0]
+    location.link = json['location_link']
+    location.posts.add(post)
+    location.save()
 
 if __name__ == '__main__':
   import os
