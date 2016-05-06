@@ -25,7 +25,9 @@ def index(request):
 def post(request,title_slug):
   post = Post.objects.get(slug=title_slug)
   speakers = Speaker.objects.all().filter(posts=post)
-  location = Location.objects.all().filter(posts=post)[0]
+  location = Location.objects.all().filter(posts=post)
+  if location:
+    location = location[0]
   comments = Comment.objects.all().filter(post=post).filter(root_comment=True)
 
   base_context = {'post':post,'speakers':speakers,'location':location,'comments':comments}
@@ -38,7 +40,9 @@ def preview_post(request,title_slug):
 
   post = Post.objects.get(slug=title_slug)
   speakers = Speaker.objects.all().filter(posts=post)
-  location = Location.objects.all().filter(posts=post)[0]
+  location = Location.objects.all().filter(posts=post)
+  if location:
+    location = location[0]
   comments = Comment.objects.all().filter(post=post).filter(root_comment=True)
 
   base_context = {'post':post,'speakers':speakers,'location':location,'comments':comments}
