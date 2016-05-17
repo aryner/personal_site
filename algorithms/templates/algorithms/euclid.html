@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+
+{% load staticfiles %}
+
+{% block header %}Euclid's Algorithm{% endblock %}
+
+{% block content %}
+
+<p>
+  m = <input id='m' size='7'>, n = <input id='n' size='7'>
+  <button id='gcd' class='btn btn-primary'>GCD</button>
+</p>
+
+<div id='steps'></div>
+
+<script src="{% static 'js/euclid.js' %}"></script>
+{% endblock %}
+
